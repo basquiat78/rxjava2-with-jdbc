@@ -1,0 +1,25 @@
+#spring  setup and common configuration
+spring:
+  profiles:
+    active: local
+
+---
+#spring profiles : LOCAL
+#spring and hikari setup
+spring:
+  profiles: local
+  
+datasource:
+  hikari:
+    cachePrepStmts: true
+    connectionTestQuery: SELECT 1
+    maximumPoolSize: 4
+    minimumIdle: 4
+    prepStmtCacheSize: 250 
+    prepStmtCacheSqlLimit: 2048 
+    pool-name: rxjava2-server-local
+  url: jdbc:mysql://192.168.0.242:3306/smart_medi?autoReconnect=true
+  username: smart-medi
+  password: mt393939
+  dataSourceClassName: com.mysql.jdbc.jdbc2.optional.MysqlDataSource
+  type: com.zaxxer.hikari.HikariDataSource

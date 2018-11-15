@@ -1,0 +1,16 @@
+DROP DATABASE IF EXISTS `basquiat`;
+CREATE DATABASE IF NOT EXISTS `basquiat`
+USE `basquiat`;
+
+DROP TABLE IF EXISTS `jazz_album`;
+CREATE TABLE `jazz_album` (
+	`album_id` VARCHAR(120) NOT NULL,
+	`musician` VARCHAR(200) NOT NULL,
+	`album_title` VARCHAR(500) NOT NULL,
+	`label` VARCHAR(200) NOT NULL,
+	`release_year` VARCHAR(10) NOT NULL,
+	PRIMARY KEY (`musician`,`album_title`)
+)
+COLLATE='utf8_general_ci'
+ENGINE=InnoDB
+;
