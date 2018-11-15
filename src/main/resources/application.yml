@@ -18,8 +18,8 @@ datasource:
     prepStmtCacheSize: 250 
     prepStmtCacheSqlLimit: 2048 
     pool-name: rxjava2-server-local
-  url: jdbc:mysql://192.168.0.242:3306/smart_medi?autoReconnect=true
-  username: smart-medi
-  password: mt393939
+  url: jdbc:mysql://127.0.0.1:3306/basquiat?autoReconnect=true
+  username: basquiat
+  password: basquiat
   dataSourceClassName: com.mysql.jdbc.jdbc2.optional.MysqlDataSource
   type: com.zaxxer.hikari.HikariDataSource
