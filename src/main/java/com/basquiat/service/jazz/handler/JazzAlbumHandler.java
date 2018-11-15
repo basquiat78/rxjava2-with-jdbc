@@ -11,7 +11,6 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 
 import com.basquiat.service.jazz.JazzAlbumService;
 import com.basquiat.service.jazz.domain.JazzAlbum;
-import com.basquiat.service.jazz.domain.JazzAlbumDTO;
 
 import reactor.core.publisher.Mono;
 
@@ -34,7 +33,7 @@ public class JazzAlbumHandler {
 	 * @return Mono<ServerResponse>
 	 */
 	public Mono<ServerResponse> save(ServerRequest request) {
-		Mono<Integer> result = request.bodyToMono(JazzAlbumDTO.class).flatMap(mapper -> jazzAlbumService.insertJazzAlbum(mapper));
+		Mono<Integer> result = request.bodyToMono(JazzAlbum.class).flatMap(mapper -> jazzAlbumService.insertJazzAlbum(mapper));
 		return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(result, Integer.class);
 	}
 	

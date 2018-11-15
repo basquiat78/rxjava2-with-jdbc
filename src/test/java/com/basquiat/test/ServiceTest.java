@@ -41,7 +41,7 @@ public class ServiceTest {
 	}
 	
 	//@Test
-	public void getTransferHistoryTest() throws JsonProcessingException {
+	public void getJazzAlbumTest() throws JsonProcessingException {
 	
 		ResponseSpec responseSpec = webTestClient.get()
 												 .uri("/albums/ea9c96e7-dfe4-449b-8ca5-a560c4486a3f")
@@ -51,7 +51,7 @@ public class ServiceTest {
 	}
 	
 	@Test
-	public void getTransferHistoryListTest() throws JsonProcessingException {
+	public void  getJazzAlbumListTest() throws JsonProcessingException {
 	
 		ResponseSpec responseSpec = webTestClient.get()
 												 .uri("/albums")

@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.basquiat.service.jazz.domain.JazzAlbum;
-import com.basquiat.service.jazz.domain.JazzAlbumDTO;
 
 import io.reactivex.Flowable;
 import reactor.core.publisher.Flux;
@@ -33,13 +32,13 @@ public class JazzAlbumService {
 	 * @param jazzAlbumDTO
 	 * @return Mono<Integer>
 	 */
-	public Mono<Integer> insertJazzAlbum(JazzAlbumDTO jazzAlbumDTO) {
+	public Mono<Integer> insertJazzAlbum(JazzAlbum jazzAlbum) {
 		Flowable<Integer> flowable = database.update("INSERT INTO JAZZ_ALBUM(album_id, musician, album_title, label, release_year) values(?, ?, ?, ?, ?)")
 				  						  	 .parameters(UUID.randomUUID().toString(), 
-					  						  			 jazzAlbumDTO.getMusician(), 
-					  						  			 jazzAlbumDTO.getAlbumTitle(), 
-					  						  			 jazzAlbumDTO.getLabel(), 
-					  						  			 jazzAlbumDTO.getReleaseYear())
+					  						  			 jazzAlbum.musician(), 
+					  						  			 jazzAlbum.albumTitle(), 
+					  						  			 jazzAlbum.label(), 
+					  						  			 jazzAlbum.releaseYear())
 				  						  	 .counts()
 				  						  	 .doOnError(throwable -> {
 				  						          throw new RuntimeException("unexcepted");

@@ -12,7 +12,7 @@ import lombok.Setter;
  */
 @Setter
 @Getter
-public class JazzAlbumDTO {
+public class JazzAlbumDTO implements JazzAlbum {
 
 	/**
 	 * album id
@@ -38,5 +38,30 @@ public class JazzAlbumDTO {
 	 * album release year
 	 */
 	private String releaseYear;
+
+	@Override
+	public String albumId() {
+		return this.albumId;
+	}
+
+	@Override
+	public String musician() {
+		return this.musician;
+	}
+
+	@Override
+	public String albumTitle() {
+		return this.albumTitle;
+	}
+
+	@Override
+	public String label() {
+		return this.label;
+	}
+
+	@Override
+	public String releaseYear() {
+		return this.releaseYear;
+	}
 	
 }
