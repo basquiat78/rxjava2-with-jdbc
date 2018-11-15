@@ -4,7 +4,7 @@ import org.davidmoten.rx.jdbc.annotations.Column;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
  * 
@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
  * created by basquiat
  *
  */
-@JsonTypeInfo(use = JsonTypeInfo.Id.NONE, defaultImpl=JazzAlbumDTO.class)
+@JsonDeserialize(as = JazzAlbumDTO.class)
 @JsonPropertyOrder({"albumId", "musician", "albumTitle", "label", "releaseYear"})
 public interface JazzAlbum {
 

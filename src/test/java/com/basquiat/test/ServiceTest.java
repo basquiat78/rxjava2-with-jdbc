@@ -24,11 +24,11 @@ public class ServiceTest {
 	@Autowired
     private WebTestClient webTestClient;
 	
-	//@Test
+	@Test
 	public void saveTest() throws JsonProcessingException {
 	
 		JazzAlbumDTO jazzAlbumDTO = new JazzAlbumDTO();
-		jazzAlbumDTO.setMusician("test");
+		jazzAlbumDTO.setMusician("test1111");
 		jazzAlbumDTO.setAlbumTitle("test111");
 		jazzAlbumDTO.setLabel("label");
 		jazzAlbumDTO.setReleaseYear("1996");
@@ -50,7 +50,7 @@ public class ServiceTest {
 		System.out.println(responseSpec.returnResult(JazzAlbum.class));
 	}
 	
-	@Test
+	//@Test
 	public void  getJazzAlbumListTest() throws JsonProcessingException {
 	
 		ResponseSpec responseSpec = webTestClient.get()
