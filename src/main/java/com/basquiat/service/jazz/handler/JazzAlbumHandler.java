@@ -1,9 +1,6 @@
 package com.basquiat.service.jazz.handler;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
@@ -12,6 +9,7 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 import com.basquiat.service.jazz.JazzAlbumService;
 import com.basquiat.service.jazz.domain.JazzAlbum;
 
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 /**
@@ -43,9 +41,8 @@ public class JazzAlbumHandler {
 	 * @return Mono<ServerResponse>
 	 */
 	public Mono<ServerResponse> findAll(ServerRequest request) {
-		Mono<List<JazzAlbum>> jazzAlbumlist = jazzAlbumService.getJazzAlbumList();
-		ParameterizedTypeReference<List<JazzAlbum>> typeReference = new ParameterizedTypeReference<List<JazzAlbum>>() {};
-		return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(jazzAlbumlist, typeReference);
+		Flux<JazzAlbum> flux = jazzAlbumService.getJazzAlbumList();
+		return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(flux, JazzAlbum.class);
 	}
 	
 	/**
@@ -55,8 +52,8 @@ public class JazzAlbumHandler {
 	 */
 	public Mono<ServerResponse> findById(ServerRequest request) {
 		String albumId = request.pathVariable("albumId");
-		Mono<JazzAlbum> jazzAlbum = jazzAlbumService.getJazzAlbumById(albumId);
-		return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(jazzAlbum, JazzAlbum.class);
+		Mono<JazzAlbum> result = jazzAlbumService.getJazzAlbumById(albumId);
+		return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(result, JazzAlbum.class);
 	}
 
 }

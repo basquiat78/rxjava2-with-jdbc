@@ -1,6 +1,5 @@
 package com.basquiat.service.jazz;
 
-import java.util.List;
 import java.util.UUID;
 
 import org.davidmoten.rx.jdbc.Database;
@@ -51,11 +50,11 @@ public class JazzAlbumService {
 	 * get jazz album List
 	 * @return Mono<List<JazzAlbum>>
 	 */
-	public Mono<List<JazzAlbum>> getJazzAlbumList() {
+	public Flux<JazzAlbum> getJazzAlbumList() {
 		Flowable<JazzAlbum> flowable = database.select("SELECT album_id, musician, album_title, label, release_year FROM JAZZ_ALBUM")
 												  .autoMap(JazzAlbum.class);
 		
-		return Flux.from(flowable).collectList();
+		return Flux.from(flowable);
 	}
 
 	/**

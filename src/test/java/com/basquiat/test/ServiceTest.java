@@ -40,7 +40,7 @@ public class ServiceTest {
 					 .expectStatus().isOk();
 	}
 	
-	@Test
+	//@Test
 	public void getJazzAlbumTest() throws JsonProcessingException {
 	
 		ResponseSpec responseSpec = webTestClient.get()
@@ -50,15 +50,14 @@ public class ServiceTest {
 		System.out.println(responseSpec.returnResult(JazzAlbum.class));
 	}
 	
-	//@Test
+	@Test
 	public void  getJazzAlbumListTest() throws JsonProcessingException {
 	
 		ResponseSpec responseSpec = webTestClient.get()
 												 .uri("/albums")
 												 .exchange()
 												 .expectStatus().isOk();
-		ParameterizedTypeReference<List<JazzAlbum>> typeReference = new ParameterizedTypeReference<List<JazzAlbum>>() {};
-		System.out.println(responseSpec.returnResult(typeReference));
+		System.out.println(responseSpec.returnResult(JazzAlbum.class));
 	}
 	
 	//@Test
