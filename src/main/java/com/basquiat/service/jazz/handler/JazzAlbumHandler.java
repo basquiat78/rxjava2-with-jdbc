@@ -28,7 +28,7 @@ public class JazzAlbumHandler {
 	private JazzAlbumService jazzAlbumService;
 	
 	/**
-	 * find all jazz album list
+	 * save jazz album
 	 * @param request
 	 * @return Mono<ServerResponse>
 	 */
