@@ -22,7 +22,6 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
-		<rxjava.version>2.2.3</rxjava.version>
 		<rxjava2.jdbc.version>0.1-RC42</rxjava2.jdbc.version>
 		<project.lombok>1.18.4</project.lombok>
 		<junit.jupiter.version>5.1.1</junit.jupiter.version>
@@ -118,12 +117,6 @@
 			<artifactId>lombok</artifactId>
 			<version>${project.lombok}</version><!--$NO-MVN-MAN-VER$-->
 			<scope>provided</scope>
-		</dependency>
-        
-        <!-- https://mvnrepository.com/artifact/io.reactivex.rxjava2/rxjava -->
-		<dependency>
-			<groupId>io.reactivex.rxjava2</groupId>
-			<artifactId>rxjava</artifactId>
 		</dependency>
         
 		<dependency>
