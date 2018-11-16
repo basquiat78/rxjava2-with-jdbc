@@ -1,1 +1,1 @@
-RxJava2 Service Like web-mvc
+Simple RxJava2 Service Like web-mvc
