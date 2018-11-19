@@ -31,7 +31,7 @@ public class JazzAlbumHandler {
 	 * @return Mono<ServerResponse>
 	 */
 	public Mono<ServerResponse> save(ServerRequest request) {
-		Mono<Integer> result = request.bodyToMono(JazzAlbum.class).flatMap(mapper -> jazzAlbumService.insertJazzAlbum(mapper));
+		Mono<Integer> result = request.bodyToMono(JazzAlbum.class).flatMap(mapper -> jazzAlbumService.save(mapper));
 		return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(result, Integer.class);
 	}
 	
@@ -41,18 +41,18 @@ public class JazzAlbumHandler {
 	 * @return Mono<ServerResponse>
 	 */
 	public Mono<ServerResponse> findAll(ServerRequest request) {
-		Flux<JazzAlbum> flux = jazzAlbumService.getJazzAlbumList();
+		Flux<JazzAlbum> flux = jazzAlbumService.findAll();
 		return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(flux, JazzAlbum.class);
 	}
 	
 	/**
-	 * transfer history by id
+	 * find jazz album by id
 	 * @param request
 	 * @return Mono<ServerResponse>
 	 */
 	public Mono<ServerResponse> findById(ServerRequest request) {
 		String albumId = request.pathVariable("albumId");
-		Mono<JazzAlbum> result = jazzAlbumService.getJazzAlbumById(albumId);
+		Mono<JazzAlbum> result = jazzAlbumService.findByAlbumId(albumId);
 		return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(result, JazzAlbum.class);
 	}
 

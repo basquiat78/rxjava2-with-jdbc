@@ -18,7 +18,7 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 import com.basquiat.service.jazz.handler.JazzAlbumHandler;
 
 /**
- * RxJava Database Configuration
+ * RxJava WebFluxRouter Configuration
  * created By basquiat
  *
  */

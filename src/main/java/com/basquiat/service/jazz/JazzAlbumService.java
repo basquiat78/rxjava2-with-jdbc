@@ -28,10 +28,10 @@ public class JazzAlbumService {
 	/**
 	 * insert jazz album
 	 * doOnError for rdbms info encapsuled
-	 * @param jazzAlbumDTO
+	 * @param jazzAlbum
 	 * @return Mono<Integer>
 	 */
-	public Mono<Integer> insertJazzAlbum(JazzAlbum jazzAlbum) {
+	public Mono<Integer> save(JazzAlbum jazzAlbum) {
 		Flowable<Integer> flowable = database.update("INSERT INTO JAZZ_ALBUM(album_id, musician, album_title, label, release_year) values(?, ?, ?, ?, ?)")
 				  						  	 .parameters(UUID.randomUUID().toString(), 
 					  						  			 jazzAlbum.musician(), 
@@ -47,10 +47,10 @@ public class JazzAlbumService {
 	
 	
 	/**
-	 * get jazz album List
+	 * find jazz album List
 	 * @return Mono<List<JazzAlbum>>
 	 */
-	public Flux<JazzAlbum> getJazzAlbumList() {
+	public Flux<JazzAlbum> findAll() {
 		Flowable<JazzAlbum> flowable = database.select("SELECT album_id, musician, album_title, label, release_year FROM JAZZ_ALBUM")
 												  .autoMap(JazzAlbum.class);
 		
@@ -58,11 +58,11 @@ public class JazzAlbumService {
 	}
 
 	/**
-	 * get Transfer History By txId
+	 * find jazz album by albumId
 	 * @param albumId
 	 * @return Mono<JazzAlbum>
 	 */
-	public Mono<JazzAlbum> getJazzAlbumById(String albumId) {
+	public Mono<JazzAlbum> findByAlbumId(String albumId) {
 		Flowable<JazzAlbum> flowable = database.select("SELECT album_id, musician, album_title, label, release_year FROM JAZZ_ALBUM WHERE album_id=?")
 												  .parameter(albumId)
 												  .autoMap(JazzAlbum.class);
