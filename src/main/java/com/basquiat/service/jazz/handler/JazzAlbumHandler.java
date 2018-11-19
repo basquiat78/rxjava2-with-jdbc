@@ -31,8 +31,8 @@ public class JazzAlbumHandler {
 	 * @return Mono<ServerResponse>
 	 */
 	public Mono<ServerResponse> save(ServerRequest request) {
-		Mono<Integer> result = request.bodyToMono(JazzAlbum.class).flatMap(mapper -> jazzAlbumService.insertJazzAlbum(mapper));
-		return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(result, Integer.class);
+		Mono<JazzAlbum> result = request.bodyToMono(JazzAlbum.class).flatMap(mapper -> jazzAlbumService.save(mapper));
+		return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(result, JazzAlbum.class);
 	}
 	
 	/**
@@ -41,19 +41,52 @@ public class JazzAlbumHandler {
 	 * @return Mono<ServerResponse>
 	 */
 	public Mono<ServerResponse> findAll(ServerRequest request) {
-		Flux<JazzAlbum> flux = jazzAlbumService.getJazzAlbumList();
+		Flux<JazzAlbum> flux = jazzAlbumService.findAll();
 		return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(flux, JazzAlbum.class);
 	}
 	
 	/**
-	 * transfer history by id
+	 * find album by album id
 	 * @param request
 	 * @return Mono<ServerResponse>
 	 */
-	public Mono<ServerResponse> findById(ServerRequest request) {
+	public Mono<ServerResponse> findByAlbumId(ServerRequest request) {
 		String albumId = request.pathVariable("albumId");
-		Mono<JazzAlbum> result = jazzAlbumService.getJazzAlbumById(albumId);
-		return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(result, JazzAlbum.class);
+		Mono<JazzAlbum> mono = jazzAlbumService.findByAlbumId(albumId);
+		return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(mono, JazzAlbum.class);
+	}
+
+	/**
+	 * find albums by musician
+	 * @param request
+	 * @return Mono<ServerResponse>
+	 */
+	public Mono<ServerResponse> findByMusician(ServerRequest request) {
+		String musician = request.pathVariable("musician");
+		Flux<JazzAlbum> flux = jazzAlbumService.findByMusician(musician);
+		return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(flux, JazzAlbum.class);
+	}
+	
+	/**
+	 * find albums by album title
+	 * @param request
+	 * @return Mono<ServerResponse>
+	 */
+	public Mono<ServerResponse> findByAlbumTitle(ServerRequest request) {
+		String albumTitle = request.pathVariable("albumTitle");
+		Flux<JazzAlbum> flux = jazzAlbumService.findByAlbumTitle(albumTitle);
+		return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(flux, JazzAlbum.class);
+	}
+	
+	/**
+	 * find albums by label
+	 * @param request
+	 * @return Mono<ServerResponse>
+	 */
+	public Mono<ServerResponse> findByLabel(ServerRequest request) {
+		String label = request.pathVariable("label");
+		Flux<JazzAlbum> flux = jazzAlbumService.findByLabel(label);
+		return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(flux, JazzAlbum.class);
 	}
 
 }

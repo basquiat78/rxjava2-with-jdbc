@@ -2,13 +2,12 @@ package com.basquiat.service.jazz;
 
 import java.util.UUID;
 
-import org.davidmoten.rx.jdbc.Database;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.basquiat.service.jazz.domain.JazzAlbum;
+import com.basquiat.service.jazz.repo.JazzAlbumRepository;
 
-import io.reactivex.Flowable;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -23,50 +22,61 @@ import reactor.core.publisher.Mono;
 public class JazzAlbumService {
 
 	@Autowired
-	private Database database;
+	private JazzAlbumRepository jazzAlbumRepository;
 	
 	/**
-	 * insert jazz album
-	 * doOnError for rdbms info encapsuled
-	 * @param jazzAlbumDTO
-	 * @return Mono<Integer>
+	 * create jazz album
+	 * @param jazzAlbum
+	 * @return Mono<JazzAlbum>
 	 */
-	public Mono<Integer> insertJazzAlbum(JazzAlbum jazzAlbum) {
-		Flowable<Integer> flowable = database.update("INSERT INTO JAZZ_ALBUM(album_id, musician, album_title, label, release_year) values(?, ?, ?, ?, ?)")
-				  						  	 .parameters(UUID.randomUUID().toString(), 
-					  						  			 jazzAlbum.musician(), 
-					  						  			 jazzAlbum.albumTitle(), 
-					  						  			 jazzAlbum.label(), 
-					  						  			 jazzAlbum.releaseYear())
-				  						  	 .counts()
-				  						  	 .doOnError(throwable -> {
-				  						          throw new RuntimeException("unexcepted");
-				  						      });
-		return Mono.from(flowable);
+	public Mono<JazzAlbum> save(JazzAlbum jazzAlbum) {
+		String albumId = "JAZZ-"+UUID.randomUUID().toString();
+		jazzAlbum.setAlbumId(albumId);
+		return jazzAlbumRepository.save(jazzAlbum);
 	}
 	
-	
 	/**
-	 * get jazz album List
-	 * @return Mono<List<JazzAlbum>>
+	 * find all jazz album
+	 * @return Flux<JazzAlbum>
 	 */
-	public Flux<JazzAlbum> getJazzAlbumList() {
-		Flowable<JazzAlbum> flowable = database.select("SELECT album_id, musician, album_title, label, release_year FROM JAZZ_ALBUM")
-												  .autoMap(JazzAlbum.class);
-		
-		return Flux.from(flowable);
+	public Flux<JazzAlbum> findAll() {
+		return jazzAlbumRepository.findAll();
 	}
 
 	/**
-	 * get Transfer History By txId
+	 * find jazz album by album id
 	 * @param albumId
 	 * @return Mono<JazzAlbum>
 	 */
-	public Mono<JazzAlbum> getJazzAlbumById(String albumId) {
-		Flowable<JazzAlbum> flowable = database.select("SELECT album_id, musician, album_title, label, release_year FROM JAZZ_ALBUM WHERE album_id=?")
-												  .parameter(albumId)
-												  .autoMap(JazzAlbum.class);
-		return Mono.from(flowable);
+	public Mono<JazzAlbum> findByAlbumId(String albumId) {
+		return jazzAlbumRepository.findByAlbumId(albumId);
+	}
+	
+	/**
+	 * find jazz album by musician
+	 * @param musician
+	 * @return Flux<JazzAlbum>
+	 */
+	public Flux<JazzAlbum> findByMusician(String musician) {
+		return jazzAlbumRepository.findByMusician(musician);
+	}
+	
+	/**
+	 * find jazz album by album title
+	 * @param albumTitle
+	 * @return Flux<JazzAlbum>
+	 */
+	public Flux<JazzAlbum> findByAlbumTitle(String albumTitle) {
+		return jazzAlbumRepository.findByAlbumTitle(albumTitle);
 	}
 
+	/**
+	 * find jazz album by label
+	 * @param label
+	 * @return Flux<JazzAlbum>
+	 */
+	public Flux<JazzAlbum> findByLabel(String label) {
+		return jazzAlbumRepository.findByLabel(label);
+	}
+	
 }

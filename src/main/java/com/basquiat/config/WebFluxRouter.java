@@ -18,7 +18,7 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 import com.basquiat.service.jazz.handler.JazzAlbumHandler;
 
 /**
- * RxJava Database Configuration
+ * RxJava WebFluxRouter Configuration
  * created By basquiat
  *
  */
@@ -31,8 +31,11 @@ public class WebFluxRouter extends DelegatingWebFluxConfiguration {
 	
 	@Bean
     public RouterFunction<ServerResponse> jazzAlbumRouter() {
-        return route(GET("/albums/{albumId}").and(accept(APPLICATION_JSON)), jazzAlbumHandler::findById)
-        	   .andRoute(GET("/albums").and(accept(APPLICATION_JSON)), jazzAlbumHandler::findAll)
+        return route(GET("/albums").and(accept(APPLICATION_JSON)), jazzAlbumHandler::findAll)
+        	   .andRoute(GET("/albums/{albumId}").and(accept(APPLICATION_JSON)), jazzAlbumHandler::findByAlbumId)
+        	   .andRoute(GET("/albums/musician/{musician}").and(accept(APPLICATION_JSON)), jazzAlbumHandler::findByMusician)
+        	   .andRoute(GET("/albums/title/{albumTitle}").and(accept(APPLICATION_JSON)), jazzAlbumHandler::findByAlbumTitle)
+        	   .andRoute(GET("/albums/label/{label}").and(accept(APPLICATION_JSON)), jazzAlbumHandler::findByLabel)
         	   .andRoute(POST("/albums").and(accept(APPLICATION_JSON)), jazzAlbumHandler::save);
     }
 

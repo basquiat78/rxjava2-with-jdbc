@@ -1,10 +1,9 @@
 package com.basquiat.service.jazz.domain;
 
-import org.davidmoten.rx.jdbc.annotations.Column;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import lombok.Data;
 
 /**
  * 
@@ -13,43 +12,34 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  * created by basquiat
  *
  */
-@JsonDeserialize(as = JazzAlbumDTO.class)
-@JsonPropertyOrder({"albumId", "musician", "albumTitle", "label", "releaseYear"})
-public interface JazzAlbum {
+@Data
+@Document
+public class JazzAlbum {
 
 	/**
 	 * album id
 	 */
-	@JsonProperty("albumId")
-	@Column("album_id")
-	String albumId();
+	@Id
+	private String albumId;
 
 	/**
 	 * musician
 	 */
-	@JsonProperty("musician")
-	@Column("musician")
-	String musician();
+	private String musician;
 	
 	/**
 	 * album title
 	 */
-	@JsonProperty("albumTitle")
-	@Column("album_title")
-	String albumTitle();
+	private String albumTitle;
 	
 	/**
 	 * album label
 	 */
-	@JsonProperty("label")
-	@Column("label")
-	String label();
+	private String label;
 	
 	/**
 	 * album release year
 	 */
-	@JsonProperty("releaseYear")
-	@Column("release_year")
-	String releaseYear();
+	private String releaseYear;
 	
 }
