@@ -31,8 +31,8 @@ public class JazzAlbumHandler {
 	 * @return Mono<ServerResponse>
 	 */
 	public Mono<ServerResponse> save(ServerRequest request) {
-		Mono<JazzAlbum> result = request.bodyToMono(JazzAlbum.class).flatMap(mapper -> jazzAlbumService.save(mapper));
-		return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(result, JazzAlbum.class);
+		Mono<JazzAlbum> mono = request.bodyToMono(JazzAlbum.class).flatMap(mapper -> jazzAlbumService.save(mapper));
+		return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(mono, JazzAlbum.class);
 	}
 	
 	/**
@@ -89,4 +89,25 @@ public class JazzAlbumHandler {
 		return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(flux, JazzAlbum.class);
 	}
 
+	/**
+	 * update album
+	 * @param request
+	 * @return Mono<ServerResponse>
+	 */
+	public Mono<ServerResponse> update(ServerRequest request) {
+		Mono<JazzAlbum> mono = request.bodyToMono(JazzAlbum.class).flatMap(mapper -> jazzAlbumService.update(mapper));
+		return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(mono, JazzAlbum.class);
+	}
+	
+	/**
+	 * delete albums by album id
+	 * @param request
+	 * @return Mono<ServerResponse>
+	 */
+	public Mono<ServerResponse> deleteByAlbumId(ServerRequest request) {
+		String albumId = request.pathVariable("albumId");
+		Mono<JazzAlbum> mono = jazzAlbumService.deleteByAlbumId(albumId);
+		return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(mono, JazzAlbum.class);
+	}
+	
 }

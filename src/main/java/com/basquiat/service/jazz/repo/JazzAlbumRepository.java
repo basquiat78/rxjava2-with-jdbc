@@ -22,5 +22,7 @@ public interface JazzAlbumRepository extends ReactiveMongoRepository<JazzAlbum, 
 	Flux<JazzAlbum> findByLabel(String label);
 	
 	Mono<JazzAlbum> findByAlbumId(String txId);
+	Mono<JazzAlbum> save(JazzAlbum entity);
+	Mono<JazzAlbum> deleteByAlbumId(String txId);
 
 }

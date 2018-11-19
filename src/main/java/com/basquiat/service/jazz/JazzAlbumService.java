@@ -79,4 +79,22 @@ public class JazzAlbumService {
 		return jazzAlbumRepository.findByLabel(label);
 	}
 	
+	/**
+	 * update jazz album
+	 * @param jazzAlbum
+	 * @return Mono<JazzAlbum>
+	 */
+	public Mono<JazzAlbum> update(JazzAlbum jazzAlbum) {
+		return jazzAlbumRepository.save(jazzAlbum);
+	}
+	
+	/**
+	 * delete jazz album by album id
+	 * @param albumId
+	 * @return Mono<JazzAlbum>
+	 */
+	public Mono<JazzAlbum> deleteByAlbumId(String albumId) {
+		return jazzAlbumRepository.deleteByAlbumId(albumId);
+	}
+	
 }

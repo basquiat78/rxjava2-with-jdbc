@@ -25,7 +25,7 @@ public class ServiceTest {
 		jazzAlbum.setMusician("Pablo Held");
 		jazzAlbum.setAlbumTitle("Investigations");
 		jazzAlbum.setLabel("Edition Records");
-		jazzAlbum.setReleaseYear("2018");
+		jazzAlbum.setReleaseYear("20182");
 
 		webTestClient.post()
 					 .uri("/albums")
@@ -74,6 +74,31 @@ public class ServiceTest {
 	public void findByLabelTest() {
 		ResponseSpec responseSpec = webTestClient.get()
 												 .uri("/albums/label/Edition Records")
+												 .exchange()
+												 .expectStatus().isOk();
+		System.out.println(responseSpec.returnResult(JazzAlbum.class));
+	}
+	
+	//@Test
+	public void updateTest() {
+		JazzAlbum jazzAlbum = new JazzAlbum();
+		jazzAlbum.setAlbumId("JAZZ-5e3749c6-2804-4e06-89f1-081f582bab1f");
+		jazzAlbum.setMusician("Pablo Held");
+		jazzAlbum.setAlbumTitle("Investigations");
+		jazzAlbum.setLabel("Edition Records");
+		jazzAlbum.setReleaseYear("2018");
+		ResponseSpec responseSpec = webTestClient.put()
+												 .uri("/albums")
+												 .body(BodyInserters.fromObject(jazzAlbum))
+												 .exchange()
+												 .expectStatus().isOk();
+		System.out.println(responseSpec.returnResult(JazzAlbum.class));
+	}
+	
+	//@Test
+	public void deleteByAlbumIdTest() {
+		ResponseSpec responseSpec = webTestClient.delete()
+												 .uri("/albums/JAZZ-9d51af42-81c9-4c0b-bf67-110950c03090")
 												 .exchange()
 												 .expectStatus().isOk();
 		System.out.println(responseSpec.returnResult(JazzAlbum.class));
