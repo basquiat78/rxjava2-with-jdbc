@@ -1,1 +1,1 @@
-Simple RxJava2 Service Like web-mvc Using WebFlux
+Simple RxJava2 Service With RxJava2-jdbc Like web-mvc Using WebFlux
